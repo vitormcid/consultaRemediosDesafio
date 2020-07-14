@@ -1,0 +1,627 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (12.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+Migrating to CreateCustomers (20190425210510)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "customers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190425210510_create_customers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190425210510"]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (6.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+Migrating to CreateMedicines (20190425210609)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "medicines" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "value" float, "quantity" integer, "stock" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190425210609_create_medicines.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190425210609"]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+Migrating to CreateCarts (20190425213740)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "customer_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_e02ab95379"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+)[0m
+  ↳ db/migrate/20190425213740_create_carts.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_carts_on_customer_id" ON "carts" ("customer_id")[0m
+  ↳ db/migrate/20190425213740_create_carts.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190425213740"]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+Migrating to CreateCartItems (20190425213811)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer, "medicine_id" integer, "quantity" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+, CONSTRAINT "fk_rails_28948e37ad"
+FOREIGN KEY ("medicine_id")
+  REFERENCES "medicines" ("id")
+)[0m
+  ↳ db/migrate/20190425213811_create_cart_items.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  ↳ db/migrate/20190425213811_create_cart_items.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_cart_items_on_medicine_id" ON "cart_items" ("medicine_id")[0m
+  ↳ db/migrate/20190425213811_create_cart_items.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190425213811"]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (7.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-07-13 20:58:54.330419"], ["updated_at", "2020-07-13 20:58:54.330419"]]
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/share/rvm/rubies/ruby-2.4.0/bin/rake:23
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Create (0.4ms)[0m  [1m[32mINSERT INTO "medicines" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2020-07-13 20:59:43.550891"], ["updated_at", "2020-07-13 20:59:43.550891"]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Create (0.5ms)[0m  [1m[32mINSERT INTO "customers" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2020-07-13 21:23:26.182048"], ["updated_at", "2020-07-13 21:23:26.182048"]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Update (0.3ms)[0m  [1m[33mUPDATE "customers" SET "name" = ?, "updated_at" = ? WHERE "customers"."id" = ?[0m  [["name", "vitor machado cid"], ["updated_at", "2020-07-13 21:25:29.248516"], ["id", 1]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Create (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2020-07-13 21:38:33.922308"], ["updated_at", "2020-07-13 21:38:33.922308"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" ORDER BY "customers"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCart Create (0.1ms)[0m  [1m[32mINSERT INTO "carts" ("customer_id", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["customer_id", 1], ["created_at", "2020-07-13 21:46:34.607943"], ["updated_at", "2020-07-13 21:46:34.607943"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.3ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.3ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ? LIMIT ?[0m  [["cart_id", 1], ["LIMIT", 11]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ? LIMIT ?[0m  [["cart_id", 1], ["LIMIT", 11]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ? LIMIT ?[0m  [["cart_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" ORDER BY "cart_items"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 1231231], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" ORDER BY "medicines"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Create (0.4ms)[0m  [1m[32mINSERT INTO "medicines" ("name", "value", "quantity", "stock", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "clonazepan"], ["value", 25.0], ["quantity", 2], ["stock", 45], ["created_at", "2020-07-13 21:59:57.795837"], ["updated_at", "2020-07-13 21:59:57.795837"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" ORDER BY "cart_items"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ? LIMIT ?[0m  [["cart_id", 1], ["LIMIT", 11]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 43], ["updated_at", "2020-07-13 22:00:48.277496"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:00:48.287751"], ["updated_at", "2020-07-13 22:00:48.287751"]]
+  [1m[35m (6.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.1ms)[0m  [1m[34mSELECT  "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ? LIMIT ?[0m  [["cart_id", 1], ["LIMIT", 11]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 41], ["updated_at", "2020-07-13 22:01:59.157307"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:01:59.161013"], ["updated_at", "2020-07-13 22:01:59.161013"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 39], ["updated_at", "2020-07-13 22:02:05.668787"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:02:05.672516"], ["updated_at", "2020-07-13 22:02:05.672516"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 212312], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Create (0.4ms)[0m  [1m[32mINSERT INTO "medicines" ("stock", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["stock", 21], ["created_at", "2020-07-13 22:18:44.756245"], ["updated_at", "2020-07-13 22:18:44.756245"]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.2ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 37], ["updated_at", "2020-07-13 22:19:12.267947"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:12.276120"], ["updated_at", "2020-07-13 22:19:12.276120"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.4ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 35], ["updated_at", "2020-07-13 22:19:13.413623"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:13.417230"], ["updated_at", "2020-07-13 22:19:13.417230"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 33], ["updated_at", "2020-07-13 22:19:13.925464"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:13.929009"], ["updated_at", "2020-07-13 22:19:13.929009"]]
+  [1m[35m (3.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 31], ["updated_at", "2020-07-13 22:19:14.357547"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:14.361024"], ["updated_at", "2020-07-13 22:19:14.361024"]]
+  [1m[35m (3.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 29], ["updated_at", "2020-07-13 22:19:14.581029"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:14.584524"], ["updated_at", "2020-07-13 22:19:14.584524"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 27], ["updated_at", "2020-07-13 22:19:14.789213"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:14.792761"], ["updated_at", "2020-07-13 22:19:14.792761"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.2ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 25], ["updated_at", "2020-07-13 22:19:14.996112"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:14.998121"], ["updated_at", "2020-07-13 22:19:14.998121"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 23], ["updated_at", "2020-07-13 22:19:15.189424"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:15.192942"], ["updated_at", "2020-07-13 22:19:15.192942"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 21], ["updated_at", "2020-07-13 22:19:15.381161"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:15.384509"], ["updated_at", "2020-07-13 22:19:15.384509"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 19], ["updated_at", "2020-07-13 22:19:15.573174"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:15.576566"], ["updated_at", "2020-07-13 22:19:15.576566"]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 17], ["updated_at", "2020-07-13 22:19:15.781045"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:15.784362"], ["updated_at", "2020-07-13 22:19:15.784362"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 15], ["updated_at", "2020-07-13 22:19:15.973198"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:15.976504"], ["updated_at", "2020-07-13 22:19:15.976504"]]
+  [1m[35m (3.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 13], ["updated_at", "2020-07-13 22:19:16.165172"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:16.168492"], ["updated_at", "2020-07-13 22:19:16.168492"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 11], ["updated_at", "2020-07-13 22:19:16.373019"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:16.376305"], ["updated_at", "2020-07-13 22:19:16.376305"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 9], ["updated_at", "2020-07-13 22:19:16.565300"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:16.568698"], ["updated_at", "2020-07-13 22:19:16.568698"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 7], ["updated_at", "2020-07-13 22:19:16.773185"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:16.776517"], ["updated_at", "2020-07-13 22:19:16.776517"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 5], ["updated_at", "2020-07-13 22:19:16.965397"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:16.968714"], ["updated_at", "2020-07-13 22:19:16.968714"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 3], ["updated_at", "2020-07-13 22:19:18.598380"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:18.602339"], ["updated_at", "2020-07-13 22:19:18.602339"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 1], ["updated_at", "2020-07-13 22:19:19.189433"], ["id", 2]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:19.193145"], ["updated_at", "2020-07-13 22:19:19.193145"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:19.672289"], ["updated_at", "2020-07-13 22:19:19.672289"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:19.976334"], ["updated_at", "2020-07-13 22:19:19.976334"]]
+  [1m[35m (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:20.424897"], ["updated_at", "2020-07-13 22:19:20.424897"]]
+  [1m[35m (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:20.744353"], ["updated_at", "2020-07-13 22:19:20.744353"]]
+  [1m[35m (3.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:21.032764"], ["updated_at", "2020-07-13 22:19:21.032764"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:21.304381"], ["updated_at", "2020-07-13 22:19:21.304381"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:21.560408"], ["updated_at", "2020-07-13 22:19:21.560408"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:21.832497"], ["updated_at", "2020-07-13 22:19:21.832497"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:22.136495"], ["updated_at", "2020-07-13 22:19:22.136495"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:22.408405"], ["updated_at", "2020-07-13 22:19:22.408405"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.3ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:36.937675"], ["updated_at", "2020-07-13 22:19:36.937675"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:39.929277"], ["updated_at", "2020-07-13 22:19:39.929277"]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:40.696329"], ["updated_at", "2020-07-13 22:19:40.696329"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:41.080882"], ["updated_at", "2020-07-13 22:19:41.080882"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:41.400474"], ["updated_at", "2020-07-13 22:19:41.400474"]]
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:42.280842"], ["updated_at", "2020-07-13 22:19:42.280842"]]
+  [1m[35m (3.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:42.680853"], ["updated_at", "2020-07-13 22:19:42.680853"]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:43.048321"], ["updated_at", "2020-07-13 22:19:43.048321"]]
+  [1m[35m (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:43.352230"], ["updated_at", "2020-07-13 22:19:43.352230"]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:43.704183"], ["updated_at", "2020-07-13 22:19:43.704183"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:44.008000"], ["updated_at", "2020-07-13 22:19:44.008000"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:44.360350"], ["updated_at", "2020-07-13 22:19:44.360350"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:44.744602"], ["updated_at", "2020-07-13 22:19:44.744602"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:45.128310"], ["updated_at", "2020-07-13 22:19:45.128310"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:45.641094"], ["updated_at", "2020-07-13 22:19:45.641094"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:46.232055"], ["updated_at", "2020-07-13 22:19:46.232055"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:47.689415"], ["updated_at", "2020-07-13 22:19:47.689415"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:19:50.505500"], ["updated_at", "2020-07-13 22:19:50.505500"]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:20:29.751173"], ["updated_at", "2020-07-13 22:20:29.751173"]]
+  [1m[35m (6.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCart Load (0.1ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:21:40.442841"], ["updated_at", "2020-07-13 22:21:40.442841"]]
+  [1m[35m (3.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 21], ["updated_at", "2020-07-13 22:22:45.077287"], ["id", 2]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Update (0.3ms)[0m  [1m[33mUPDATE "medicines" SET "stock" = ?, "updated_at" = ? WHERE "medicines"."id" = ?[0m  [["stock", 19], ["updated_at", "2020-07-13 22:22:49.143414"], ["id", 2]]
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" WHERE "carts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCartItem Create (0.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("cart_id", "medicine_id", "quantity", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["cart_id", 1], ["medicine_id", 2], ["quantity", 2], ["created_at", "2020-07-13 22:22:49.158832"], ["updated_at", "2020-07-13 22:22:49.158832"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCart Load (0.2ms)[0m  [1m[34mSELECT  "carts".* FROM "carts" ORDER BY "carts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."cart_id" = ?[0m  [["cart_id", 1]]
+  [1m[36mMedicine Load (0.2ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.1ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mMedicine Load (0.0ms)[0m  [1m[34mSELECT  "medicines".* FROM "medicines" WHERE "medicines"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
