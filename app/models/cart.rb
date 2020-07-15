@@ -17,28 +17,53 @@ class Cart < ApplicationRecord
   end
 
 
+
+################# Extra task ####################
+
+  def best_price
+    total_price - best_discount
+  end
+
   def best_discount
     linearized_items = Cart.linearize_items(cart_items)
     groups  = []
 
-    number_of_groups = linearized_items.count    
+    #finding the ideal number of groups
+    most_frequent_item = linearized_items.uniq.max_by{ |i| linearized_items.count( i ) }
+    number_of_groups = linearized_items.count(most_frequent_item)
     number_of_groups.times{groups << []}
+
+    #initializing variables
     value_position = 0
+    discount_values = []  
+    count = [0] 
 
-  end
-
-  def self.fill_groups(linearized_items,groups,number_of_groups,value_position)
-    unless linearized_items.present?      
-      groups = []
-     return
+    #checking which combination generates the biggest discount
+    (0..number_of_groups-1).each_with_index do |n,i|      
+      copy_groups = Marshal.load( Marshal.dump(groups) )
+      Cart.fill_groups(linearized_items,copy_groups,number_of_groups,i,discount_values,count)
     end
 
+    discount_values.max()
+  end
 
-    copy_groups = groups.dup
-    copy_groups[value_position] << linearized_items[0]
+  def self.fill_groups(linearized_items,groups,number_of_groups,value_position,discount_values,count)
+    #recursion stop condition
+    unless linearized_items.present?
+      actual_discount =  discount_calc(groups)          
+      discount_values << actual_discount.round(2)      
+      return
+    end
 
-    (0..number_of_groups-1).each_with_index do |n,i|
-      fill_groups(linearized_items.drop(1),copy_groups.dup,number_of_groups,i)
+    return if groups[value_position].include?(linearized_items[0])
+
+    #filling the groups recursively
+    groups[value_position] << linearized_items[0]
+
+    (0..number_of_groups-1).each_with_index do |n,i|       
+      copy_groups = Marshal.load( Marshal.dump(groups) )
+
+      fill_groups(linearized_items.drop(1),copy_groups,number_of_groups,i,discount_values,count)
     end
   end
 
@@ -51,5 +76,23 @@ class Cart < ApplicationRecord
     linearized_items
   end
 
+  def self.discount_calc(groups)
+    discount_percentages = [0,0,0.5,0.10,0.20,0.25]
+    total_discount = 0
+
+    groups.each do |group|
+      if group.size > 5
+        discount_percentage = 25
+      else
+        discount_percentage = discount_percentages[group.size]
+      end
+
+      total_group_discount = group.size * 8 * discount_percentage
+      total_discount += total_group_discount
+    end
+    total_discount
+  end
+
+################# End of extra task ###############
 
 end
