@@ -44,7 +44,7 @@ class Cart < ApplicationRecord
       Cart.fill_groups(linearized_items,copy_groups,number_of_groups,i,discount_values,count)
     end
 
-    discount_values.max()
+    discount_values.present? ? discount_values.max() : 0
   end
 
   def self.fill_groups(linearized_items,groups,number_of_groups,value_position,discount_values,count)
@@ -77,7 +77,7 @@ class Cart < ApplicationRecord
   end
 
   def self.discount_calc(groups)
-    discount_percentages = [0,0,0.5,0.10,0.20,0.25]
+    discount_percentages = [0,0,0.05,0.10,0.20,0.25]
     total_discount = 0
 
     groups.each do |group|
